@@ -13,4 +13,5 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         return Result.error(StringUtils.hasLength(e.getMessage())?e.getMessage():"操作失败");
     }
+
 }

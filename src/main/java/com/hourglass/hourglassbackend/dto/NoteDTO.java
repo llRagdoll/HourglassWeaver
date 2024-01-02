@@ -1,17 +1,15 @@
-package com.hourglass.hourglassbackend.entity;
+package com.hourglass.hourglassbackend.dto;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class Note {
+public class NoteDTO {
     private Integer id;
-    private Integer userId;
     private String title;
-    private String text;
     private String tag;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
-    private Integer taskId;
+
 }

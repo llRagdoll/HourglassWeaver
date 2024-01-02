@@ -1,5 +1,7 @@
 package com.hourglass.hourglassbackend.service.impl;
 
+import com.hourglass.hourglassbackend.dto.RecentTaskDTO;
+import com.hourglass.hourglassbackend.dto.TaskDistributionDTO;
 import com.hourglass.hourglassbackend.entity.User;
 import com.hourglass.hourglassbackend.mapper.UserMapper;
 import com.hourglass.hourglassbackend.service.UserService;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -30,8 +33,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void update(@RequestBody @Validated User user){
-    userMapper.update(user);
+    public void update(String name, String email, String phone, String avatar) {
+        Map<String,Object> map= ThreadLocalUtil.get();
+        Integer id=(Integer)map.get("id");
+        userMapper.update(name,email,phone,avatar,id);
     }
 
     @Override
@@ -39,6 +44,21 @@ public class UserServiceImpl implements UserService {
         Map<String,Object> map= ThreadLocalUtil.get();
         Integer id=(Integer)map.get("id");
         userMapper.updateAvatar(avatarUrl,id);
+    }
+
+    @Override
+    public TaskDistributionDTO getTaskDistribution(Integer userId) {
+        Map<String,Object> map=ThreadLocalUtil.get();
+        Integer id=(Integer)map.get("id");
+        return userMapper.getTaskDistribution(id);
+    }
+
+
+    @Override
+    public List<RecentTaskDTO> getRecentTask(Integer userId) {
+        Map<String,Object> map=ThreadLocalUtil.get();
+        Integer id=(Integer)map.get("id");
+        return userMapper.getRecentTask(id);
     }
 
 }
